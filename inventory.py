@@ -39,3 +39,5 @@ with open(f"{hosts}","r") as fi:
             tn.write("do wr\n")
             tn.write("end\n")
             tn.write("logout")
+#    with open("running_configs.txt","w") as fo:
+#       fo.wr
