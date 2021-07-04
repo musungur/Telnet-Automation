@@ -8,9 +8,9 @@ import getpass
 
 USERNAME = input("Enter username:")
 #PASS1 = input("Enter the Password:")
-PASS1 = getpass.getpass#doesnt show typed pswrd
+PASS1 = getpass.getpass()#doesnt show typed pswrd
 #PASS2 = input("Enter password:")#displays typed pswrd
-PASS2 = getpass.getpass
+PASS2 = getpass.getpass()
 hosts = input("Enter inventory file containing lists of devices to be configure:")
 
 with open(f"{hosts}","r") as fi:
