@@ -19,6 +19,7 @@ with open(f"{hosts}","r") as fi:
 
     #server_consele-start
     print(f"**\n{devices}**\n**{total_numberOf_devices)**\n")
+
     #server_console-end
 
     tn = telnetlib.Telnet(devices)
