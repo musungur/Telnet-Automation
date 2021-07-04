@@ -38,8 +38,11 @@ with open(f"{hosts}","r") as fi:
         tn.read("You're about to make changes to {total_numberOf_devices} devices in the network.,These devices  may stop routing packets! Do you want to proceed?\n")
         deside = input("y/yes or n/no:")
         tn.write(f"{deside}\n")
+
         if deside == "y" or deside == "yes":
+
             for ip in range(1,20,2):
+
                 mask = "255.255.255.0"
                 ip+=1
                 tn.write("banner motd #Do not make any changes to this device unless authorised by Eng.Robert")
@@ -57,13 +60,17 @@ with open(f"{hosts}","r") as fi:
                     devices_cfgs = tn.read_all()
                     sav.write(devices_cfgs)
                     tn.read("configuration file saved successfully")
+
         elif deside == "n" or deside == "no":
+
             #device console
             tn.read("you stopped to push new cofigurations to {total_numberOf_devices} devices")
             tn.close()
             #server/admin console
             print("you did not accept to make changes. Major Configuration changes were stopped by you. Script ended")
+
         elif deside == "":
+
             #device console
             tn.read("you did not make choise. telnet script will close. please try again later\n")
             tn.close()
