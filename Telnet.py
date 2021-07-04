@@ -5,43 +5,63 @@ import sys
 import telnetlib
 import os
 import getpass
+import json
 
-USERNAME = input("Enter username:")
 #PASS1 = input("Enter the Password:")
-print("enable mode")
-PASS1 = getpass.getpass()#doesnt show typed pswrd
-#PASS2 = input("Enter password:")#displays typed pswrd
-print("Privileged config mode")
-PASS2 = getpass.getpass()
-hosts = input("Enter inventory file containing lists of devices to be configure:")
+#PASS2 = input("Enter password:")#displays typed password
 
+#try:
+hosts = input("Enter inventory Host file containing lists of devices to be configure:")
+    #capture file error to be added
+'''    if hosts != "":
+        print("please enter hostfile name")
+    elif hosts !="":
+        print(f"host file {hosts} doesnt exist")
+#except Exception as err:
+except:
+    print("err file not exiat")
+'''
 with open(f"{hosts}","r") as fi:
     devices = fi.readline()
     total_numberOf_devices = len(str(devices))
 
+    USERNAME = input("Enter username:")
+    print("enable mode")
+    PASS1 = getpass.getpass()
+    print("privileged mode")
+    PASS2 = getpass.getpass()
+
+    deviceList = json.dumps(devices)
+
     #server_consele-start
-    print(f"**\n{devices}**\n**{total_numberOf_devices}**\n")
+    print(f"\n**Names of Devices configured\n{deviceList}\n**\nTotal number: {total_numberOf_devices} devices\n**\n")
+
 
     #server_console-end
 
     tn = telnetlib.Telnet(devices)
 
+    '''
+    password and username check will be configured here in the next new Telnet version
+    '''
+
     for line in devices:
 
         line+=1
-        tn.read("Enter username:")
+        tn.read("username:")
         tn.write(f"{USERNAME}\n")
-        tn.write("# you're in enable mode>\n")
+        tn.write(f"{PASS1}\n")
+        tn.write("# you're in disabled mode>\n")
         tn.write("show version\n")
         tn.write("enable\n")
         tn.read("Enter privileged config mode password:")
-        tn.write(f"{PASS1}\n")
+        tn.write(f"{PASS2}\n")
         tn.write("show run\n")
         tn.write("configure terminal\n")
 
         #decision before effecting changes to Network devices
 
-        tn.read("You're about to make changes to {total_numberOf_devices} devices in the network.,These devices  may stop routing packets! Do you want to proceed?\n")
+        tn.read(f"You're about to make changes to {total_numberOf_devices} devices in the network.These devices  may stop routing packets! Do you want to proceed?\n")
 
         deside = input("y/yes or n/no:")
         tn.write(f"{deside}\n")
@@ -67,7 +87,7 @@ with open(f"{hosts}","r") as fi:
                 with open("running_config","w") as sav:
                     devices_cfgs = tn.read_all()
                     sav.write(devices_cfgs)
-                    tn.read("configuration file saved successfully")
+                    tn.read(f"configuration file for {total_numberOf_devices} devices saved successfully")
 
         elif deside == "n" or deside == "no":
 
