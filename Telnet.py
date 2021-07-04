@@ -8,8 +8,10 @@ import getpass
 
 USERNAME = input("Enter username:")
 #PASS1 = input("Enter the Password:")
+print("enable mode")
 PASS1 = getpass.getpass()#doesnt show typed pswrd
 #PASS2 = input("Enter password:")#displays typed pswrd
+print("Privileged config mode")
 PASS2 = getpass.getpass()
 hosts = input("Enter inventory file containing lists of devices to be configure:")
 
@@ -18,7 +20,7 @@ with open(f"{hosts}","r") as fi:
     total_numberOf_devices = len(str(devices))
 
     #server_consele-start
-    print(f"**\n{devices}**\n**{total_numberOf_devices)**\n")
+    print(f"**\n{devices}**\n**{total_numberOf_devices}**\n")
 
     #server_console-end
 
