@@ -37,7 +37,7 @@ with open(f"{hosts}","r") as fi:
 
         #decision before effecting changes to Network devices
 
-        tn.read(f"You're about to make changes to {total_numberOf_devices} devices in the network.,These devices  may stop routing packets! Do you want to proceed?\n")
+        tn.read("You're about to make changes to {total_numberOf_devices} devices in the network.,These devices  may stop routing packets! Do you want to proceed?\n")
         deside = input("y/yes or n/no:")
 
         tn.write(f"{deside}\n")
@@ -63,7 +63,7 @@ with open(f"{hosts}","r") as fi:
                     tn.read("configuration file saved successfully")
         elif deside == "n" or deside == "no":
 #device console
-            tn.read(f"you stopped to push new cofigurations to {total_numberOf_devices} devices")
+            tn.read("you stopped to push new cofigurations to {total_numberOf_devices} devices")
             tn.close()
 #server/admin console
             print("you did not accept to make changes. Major Configuration changes were stopped by you. Script ended")
