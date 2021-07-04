@@ -19,6 +19,7 @@ with open(f"{hosts}","r") as fi:
     tn = telnetlib.Telnet(devices)
 
     for line in devices:
+        line+=1
         tn.read("Enter username:")
         tn.write(f"{USERNAME}\n")
         tn.write("# you're in enable mode>\n")
@@ -32,6 +33,7 @@ with open(f"{hosts}","r") as fi:
         for ip in range(1,20,2):
             mask = "255.255.255.0"
             ip+=1
+            tn.write(f"hostname {line}")
             tn.write(f"int loopback {ip}\n")
             tn.write(f"description {line}\n") 
             tn.write(f"ip add 192.168.51.{ip} {mask}")
@@ -39,3 +41,8 @@ with open(f"{hosts}","r") as fi:
             tn.write("do wr\n")
             tn.write("end\n")
             tn.write("logout\n")
+
+#saving configarations
+        with open("running_config","w") as sav:
+            devices_cfgs =tn.read_all()
+            sav.write(devices_cfgs)
