@@ -1,0 +1,18 @@
+---
+all:
+  host:
+    children:
+      routers:
+        ASPEN-NBO-RTR-01:
+        SPEN-NBO-RTR-02:
+        ASPEN-NBO-MPLS-01:
+        ASPEN-NBO-OFF-RTR-01:
+      switches:
+        ASPEN-RD-SWT-01:
+        ASPEN-WHS-SWT-02:
+        ASPEN-FACT-SWT-01:
+        ASPEN-FACT-SWR-02:
+        ASPEN-DC-SWT-01:
+        ASPEN-DC-SWT-02:
+        ASPEN-NBO-OFF-SWT-01:
+        ASPEN-NB0-OFF-SWT-02:
